@@ -74,13 +74,24 @@ class Board extends Component {
         board[y][x] = !board[y][x];
       }
     }
+    // Center cell
+    flipCell(y, x);
+    // North cell
+    flipCell(y + 1, x);
+    // South cell
+    flipCell(y - 1, x);
+    // East cell
+    flipCell(y, x + 1);
+    // West cell
+    flipCell(y, x - 1);
 
     // TODO: flip this cell and the cells around it
 
     // win when every cell is turned off
     // TODO: determine is the game has been won
+    let hasWon = false;
 
-    // this.setState({ board, hasWon });
+    this.setState({ board, hasWon });
   }
 
   /** Render game board or winning message. */
@@ -91,7 +102,14 @@ class Board extends Component {
     // make table board
     // TODO
     const tableBoard = this.state.board.map((row, y) => (
-      <tr key={y}>{row.map((cell, x) => <Cell key={`${y}-${x}`} isLit={cell} />)}</tr>
+      <tr key={y}>
+        {row.map((cell, x) => {
+          const coord = `${y}-${x}`;
+          return (
+            <Cell key={coord} isLit={cell} flipCellsAroundMe={() => this.flipCellsAround(coord)} />
+          );
+        })}
+      </tr>
     ));
 
     return (
