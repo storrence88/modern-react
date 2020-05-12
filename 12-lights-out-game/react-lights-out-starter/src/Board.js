@@ -89,7 +89,7 @@ class Board extends Component {
 
     // win when every cell is turned off
     // TODO: determine is the game has been won
-    let hasWon = false;
+    let hasWon = board.every(row => row.every(cell => !cell));
 
     this.setState({ board, hasWon });
   }
@@ -97,6 +97,9 @@ class Board extends Component {
   /** Render game board or winning message. */
 
   render() {
+    if (this.state.hasWon) {
+      return <h1>You won!</h1>;
+    }
     // if the game is won, just show a winning msg & render nothing else
     // TODO
     // make table board
