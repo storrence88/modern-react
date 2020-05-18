@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NewTodoForm from './NewTodoForm';
-import { v4 as uuidv4 } from 'uuid';
 import Todo from './Todo';
 
 class TodoList extends Component {
@@ -10,10 +9,7 @@ class TodoList extends Component {
   }
 
   addTodo = todo => {
-    console.log(todo);
-    let newTodo = { ...todo, id: uuidv4() };
-    console.log(newTodo);
-    this.setState(prevState => ({ todos: [...prevState.todos, newTodo] }));
+    this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
   };
 
   removeTodo = id => {
