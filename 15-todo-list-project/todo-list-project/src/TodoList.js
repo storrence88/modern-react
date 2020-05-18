@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NewTodoForm from './NewTodoForm';
-import { v4 as uuidv4 } from 'uuid';
 import Todo from './Todo';
 
 class TodoList extends Component {
@@ -10,10 +9,7 @@ class TodoList extends Component {
   }
 
   addTodo = todo => {
-    console.log(todo);
-    let newTodo = { ...todo, id: uuidv4() };
-    console.log(newTodo);
-    this.setState(prevState => ({ todos: [...prevState.todos, newTodo] }));
+    this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
   };
 
   removeTodo = id => {
@@ -22,13 +18,24 @@ class TodoList extends Component {
     });
   };
 
+  updateTodo = (id, updatedTask) => {
+    const updatedTodos = this.state.todos.map(todo => {
+      if (todo.id === id) {
+        return { ...todo, task: updatedTask };
+      }
+      return todo;
+    });
+    this.setState({ todos: updatedTodos });
+  };
+
   render() {
     const todos = this.state.todos.map(todo => (
       <Todo
         key={todo.id}
         id={todo.id}
         task={todo.task}
-        removeTodo={() => this.removeTodo(todo.id)}
+        removeTodo={this.removeTodo}
+        updateTodo={this.updateTodo}
       />
     ));
     return (
