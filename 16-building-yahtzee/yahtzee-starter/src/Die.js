@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import './Die.css';
 
 class Die extends Component {
+  static defaultProps = {
+    numberToWords: ['one', 'two', 'three', 'four', 'five', 'six']
+  };
   handleClick = () => {
     this.props.handleClick(this.props.idx);
   };
 
   render() {
-    return (
-      <button
-        className={'Die'}
-        style={{ backgroundColor: this.props.locked ? 'grey' : 'black' }}
-        onClick={this.handleClick}
-      >
-        {this.props.val}
-      </button>
-    );
+    const { numberToWords, locked, val, disabled } = this.props;
+    let classes = `Die fas fa-dice-${numberToWords[val - 1]} fa-5x `;
+    if (locked) classes += 'Die-locked';
+    return <i className={classes} onClick={this.handleClick} disabled={disabled} />;
   }
 }
 
