@@ -8,6 +8,11 @@ class TodoList extends Component {
     super(props);
     this.state = { todos: [] };
   }
+  componentDidUpdate(prevProps, prevState) {
+    console.log('In componentDidUpdate!');
+    console.log(prevState.todos);
+    console.log(this.state.todos);
+  }
 
   addTodo = todo => {
     this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
