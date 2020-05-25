@@ -4,11 +4,13 @@ import axios from 'axios';
 
 class zenQuote extends Component {
   constructor(props) {
+    console.log('In constructor!');
     super(props);
     this.state = { quote: '', isLoaded: false };
   }
 
   componentDidMount() {
+    console.log('In componentDidMount!');
     // Load data
     axios.get('https://api.github.com/zen').then(response => {
       setTimeout(
@@ -21,7 +23,12 @@ class zenQuote extends Component {
     // Set state with that data
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('In componentDidUpdate!');
+  }
+
   render() {
+    console.log('In render!');
     return (
       <div>
         {this.state.isLoaded ? (
