@@ -8,10 +8,11 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <GithubUserInfo username='facebook' />
+        <ZenQuote />
+        {/* <GithubUserInfo username='facebook' />
         <GithubUserInfo username='storrence88' />
         <GithubUserInfo username='gaearon' />
-        <GithubUserInfo username='sophiebits' />
+        <GithubUserInfo username='sophiebits' /> */}
       </div>
     );
   }
