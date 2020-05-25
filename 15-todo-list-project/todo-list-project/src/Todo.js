@@ -10,6 +10,12 @@ class Todo extends Component {
     };
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('Todo componentDidUpdate!');
+    console.log(prevProps.task);
+    console.log(this.props.task);
+  }
+
   handleRemove = () => {
     this.props.removeTodo(this.props.id);
   };
