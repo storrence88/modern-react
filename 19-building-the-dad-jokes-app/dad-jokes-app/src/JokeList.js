@@ -20,10 +20,19 @@ export default class JokeList extends Component {
       let res = await axios.get('https://icanhazdadjoke.com/', {
         headers: { Accept: 'application/json' }
       });
-      jokes.push(res.data.joke);
+      console.log(res.data.id);
+      jokes.push({ id: res.data.id, text: res.data.joke, votes: 0 });
     }
     this.setState({ jokes: jokes });
   }
+
+  handleVote = (id, delta) => {
+    this.setState(prevState => ({
+      jokes: prevState.jokes.map(
+        joke => (joke.id === id ? { ...joke, votes: joke.votes + delta } : joke)
+      )
+    }));
+  };
 
   render() {
     return (
@@ -35,7 +44,18 @@ export default class JokeList extends Component {
           <img src='https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg' />
           <button className='JokeList-getmore'>New Jokes</button>
         </div>
-        <div className='JokeList-jokes'>{this.state.jokes.map(joke => <div>{joke}</div>)}</div>
+        <div className='JokeList-jokes'>
+          {this.state.jokes.map(joke => (
+            <Joke
+              key={joke.id}
+              id={joke.id}
+              votes={joke.votes}
+              text={joke.text}
+              upvote={() => this.handleVote(joke.id, 1)}
+              downvote={() => this.handleVote(joke.id, -1)}
+            />
+          ))}
+        </div>
       </div>
     );
   }
