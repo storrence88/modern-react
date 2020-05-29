@@ -10,21 +10,24 @@ export default class JokeList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { jokes: [] };
+    this.state = { jokes: JSON.parse(window.localStorage.getItem('jokes') || '[]') };
   }
 
-  async componentDidMount() {
-    // Load jokes
+  componentDidMount() {
+    if (this.state.jokes.length === 0) this.getJokes();
+  }
+
+  getJokes = async () => {
     let jokes = [];
     while (jokes.length < this.props.numberOfJokesToGet) {
       let res = await axios.get('https://icanhazdadjoke.com/', {
         headers: { Accept: 'application/json' }
       });
-      console.log(res.data.id);
       jokes.push({ id: res.data.id, text: res.data.joke, votes: 0 });
     }
     this.setState({ jokes: jokes });
-  }
+    window.localStorage.setItem('jokes', JSON.stringify(jokes));
+  };
 
   handleVote = (id, delta) => {
     this.setState(prevState => ({
