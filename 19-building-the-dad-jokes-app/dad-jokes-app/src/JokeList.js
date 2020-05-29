@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Joke from './Joke';
+import { v4 as uuid } from 'uuid';
 import './JokeList.css';
 
 export default class JokeList extends Component {
@@ -23,18 +24,30 @@ export default class JokeList extends Component {
       let res = await axios.get('https://icanhazdadjoke.com/', {
         headers: { Accept: 'application/json' }
       });
-      jokes.push({ id: res.data.id, text: res.data.joke, votes: 0 });
+      jokes.push({ id: uuid(), text: res.data.joke, votes: 0 });
     }
-    this.setState({ jokes: jokes });
+    this.setState(
+      prevState => ({
+        jokes: [...prevState.jokes, ...jokes]
+      }),
+      () => window.localStorage.setItem('jokes', JSON.stringify(this.state.jokes))
+    );
     window.localStorage.setItem('jokes', JSON.stringify(jokes));
   };
 
   handleVote = (id, delta) => {
-    this.setState(prevState => ({
-      jokes: prevState.jokes.map(
-        joke => (joke.id === id ? { ...joke, votes: joke.votes + delta } : joke)
-      )
-    }));
+    this.setState(
+      prevState => ({
+        jokes: prevState.jokes.map(
+          joke => (joke.id === id ? { ...joke, votes: joke.votes + delta } : joke)
+        )
+      }),
+      () => window.localStorage.setItem('jokes', JSON.stringify(this.state.jokes))
+    );
+  };
+
+  handleClick = () => {
+    this.getJokes();
   };
 
   render() {
@@ -44,8 +57,13 @@ export default class JokeList extends Component {
           <h1 className='JokeList-title'>
             <span>Dad</span> Jokes!
           </h1>
-          <img src='https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg' />
-          <button className='JokeList-getmore'>New Jokes</button>
+          <img
+            src='https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg'
+            alt='smiley'
+          />
+          <button className='JokeList-getmore' onClick={this.handleClick}>
+            New Jokes
+          </button>
         </div>
         <div className='JokeList-jokes'>
           {this.state.jokes.map(joke => (
