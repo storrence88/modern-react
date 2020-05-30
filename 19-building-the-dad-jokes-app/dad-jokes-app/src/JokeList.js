@@ -3,6 +3,7 @@ import axios from 'axios';
 import Joke from './Joke';
 import { v4 as uuid } from 'uuid';
 import './JokeList.css';
+import FlipMove from 'react-flip-move';
 
 export default class JokeList extends Component {
   static defaultProps = {
@@ -66,6 +67,11 @@ export default class JokeList extends Component {
     this.setState({ loading: true }, this.getJokes);
   };
 
+  handleReset = () => {
+    window.localStorage.clear();
+    window.location.reload(false);
+  };
+
   render() {
     if (this.state.loading) {
       return (
@@ -87,20 +93,25 @@ export default class JokeList extends Component {
             alt='smiley'
           />
           <button className='JokeList-getmore' onClick={this.handleClick}>
-            Fetch Jokes
+            Add Jokes
+          </button>
+          <button className='JokeList-clear' onClick={this.handleReset}>
+            Reset Jokes
           </button>
         </div>
         <div className='JokeList-jokes'>
-          {jokes.map(joke => (
-            <Joke
-              key={joke.id}
-              id={joke.id}
-              votes={joke.votes}
-              text={joke.text}
-              upvote={() => this.handleVote(joke.id, 1)}
-              downvote={() => this.handleVote(joke.id, -1)}
-            />
-          ))}
+          <FlipMove>
+            {jokes.map(joke => (
+              <Joke
+                key={joke.id}
+                id={joke.id}
+                votes={joke.votes}
+                text={joke.text}
+                upvote={() => this.handleVote(joke.id, 1)}
+                downvote={() => this.handleVote(joke.id, -1)}
+              />
+            ))}
+          </FlipMove>
         </div>
       </div>
     );
