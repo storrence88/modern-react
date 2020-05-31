@@ -21,6 +21,12 @@ class App extends Component {
           <NavLink exact activeClassName='active-link' to='/dog'>
             Dog
           </NavLink>
+          <NavLink activeClassName='active-link' to='/dog/r'>
+            Dog(r)
+          </NavLink>
+          <NavLink activeClassName='active-link' to='/dog/c'>
+            Dog(c)
+          </NavLink>
         </nav>
 
         <Switch>
@@ -28,6 +34,10 @@ class App extends Component {
           <Route exact path='/contact' component={Contact} />
           <Route exact path='/dog' component={Dog} />
           <Route exact path='/dog/hater' component={Hater} />
+          {/* Component will instantiate a new Dog every time */}
+          <Route exact path='/dog/c' component={() => <Dog name='Muffins' />} />
+          {/* Render will re-use the existing dog component */}
+          <Route exact path='/dog/r' render={() => <Dog name='Biscuits' />} />
         </Switch>
       </div>
     );
