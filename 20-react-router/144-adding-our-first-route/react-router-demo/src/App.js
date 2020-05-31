@@ -1,9 +1,5 @@
-// ====================================================
-// IF YOU ARE LOOKING FOR THE 'fake' ROUTING EXAMPLE...
-// I MOVED THE CODE INTO FakeRouting.js
-// ====================================================
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, NavLink } from 'react-router-dom';
 import About from './About';
 import Dog from './Dog';
 import Contact from './Contact';
@@ -16,12 +12,15 @@ class App extends Component {
     return (
       <div className='App'>
         <nav className='App-nav'>
-          <Link to='/'>About</Link>
-          <Link to='/contact'>Contact</Link>
-          <Link to='/dog'>Dog</Link>
-          <a href='/'>About</a>
-          <a href='/contact'>Contact</a>
-          <a href='dog'>Dog</a>
+          <NavLink exact activeClassName='active-link' to='/'>
+            About
+          </NavLink>
+          <NavLink exact activeClassName='active-link' to='/contact'>
+            Contact
+          </NavLink>
+          <NavLink exact activeClassName='active-link' to='/dog'>
+            Dog
+          </NavLink>
         </nav>
 
         <Switch>
