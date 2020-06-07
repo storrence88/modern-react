@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Food from './Food';
+import Meal from './Meal';
 import './App.css';
 
 class App extends Component {
@@ -39,6 +40,12 @@ class App extends Component {
         */}
 
         {/* <Route exact path='/food/:name' component={Food} /> */}
+
+        {/* 
+          We can also handle multiple route params
+        */}
+
+        <Route exact path='/food/:foodName/drink/:drinkName' component={Meal} />
       </div>
     );
   }
