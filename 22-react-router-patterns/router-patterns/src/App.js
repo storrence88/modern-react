@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import FoodSearch from './FoodSearch';
 import Food from './Food';
 import Meal from './Meal';
 import './App.css';
@@ -54,7 +55,7 @@ class App extends Component {
             Also the order of the Routes matter when using Switch
             We want to place the 404 route at the bottom of our Routes
           */}
-          <Route exact path='/' render={() => <h1>Homepage!</h1>} />
+          <Route exact path='/' render={() => <FoodSearch />} />
           <Route render={() => <h1>404 - Page Not Found!</h1>} />
         </Switch>
       </div>
