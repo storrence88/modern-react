@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import FoodSearch from './FoodSearch';
+import Navbar from './Navbar';
 import Food from './Food';
 import Meal from './Meal';
 import './App.css';
@@ -9,6 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <Navbar />
         <Switch>
           {/*
           This is very bad practice. We would have to hardcode
