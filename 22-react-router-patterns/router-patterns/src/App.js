@@ -55,7 +55,7 @@ class App extends Component {
             Also the order of the Routes matter when using Switch
             We want to place the 404 route at the bottom of our Routes
           */}
-          <Route exact path='/' render={() => <FoodSearch />} />
+          <Route exact path='/' render={routeProps => <FoodSearch {...routeProps} />} />
           <Route render={() => <h1>404 - Page Not Found!</h1>} />
         </Switch>
       </div>
