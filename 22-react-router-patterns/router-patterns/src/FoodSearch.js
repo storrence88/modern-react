@@ -11,6 +11,14 @@ export default class FoodSearch extends Component {
     this.setState({ query: event.target.value });
   };
 
+  handleClick = () => {
+    // Save to DB
+    alert('Save food to DB!');
+
+    // Call redirect
+    this.props.history.push(`/food/${this.state.query}`);
+  };
+
   render() {
     return (
       <div>
@@ -22,6 +30,7 @@ export default class FoodSearch extends Component {
           onChange={this.handleChange}
         />
         <Link to={`/food/${this.state.query}`}>Go!</Link>
+        <button onClick={this.handleClick}>Save Food</button>
       </div>
     );
   }
