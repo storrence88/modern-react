@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
 function TodoList({ todos }) {
+  console.log(todos);
   return (
     <Paper>
       <List>
