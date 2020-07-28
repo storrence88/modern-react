@@ -7,7 +7,7 @@ function TodoForm({ addTodo }) {
   const [title, setTitle, reset] = useImportState('');
 
   return (
-    <Paper>
+    <Paper style={{ margin: '1rem 0', padding: '0 1rem' }}>
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -15,7 +15,13 @@ function TodoForm({ addTodo }) {
           reset();
         }}
       >
-        <TextField value={title} onChange={setTitle} />
+        <TextField
+          value={title}
+          onChange={setTitle}
+          margin='normal'
+          label='Add New Todo'
+          fullWidth
+        />
       </form>
     </Paper>
   );
