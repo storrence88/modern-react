@@ -12,9 +12,7 @@ function TodoList({ todos, removeTodo, toggleTodo, updateTodo }) {
           {todos.map((todo, i) => (
             <Fragment key={todo.id}>
               <Todo
-                task={todo.task}
-                id={todo.id}
-                completed={todo.completed}
+                {...todo}
                 removeTodo={removeTodo}
                 toggleTodo={toggleTodo}
                 updateTodo={updateTodo}
