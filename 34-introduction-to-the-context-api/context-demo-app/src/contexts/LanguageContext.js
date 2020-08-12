@@ -8,9 +8,13 @@ export class LanguageProvider extends Component {
     this.state = { language: 'english' };
   }
 
+  changeLanguage = (event) => {
+    this.setState({ language: event.target.value });
+  };
+
   render() {
     return (
-      <LanguageContext.Provider value={{ ...this.state }}>
+      <LanguageContext.Provider value={{ ...this.state, changeLanguage: this.changeLanguage }}>
         {this.props.children}
       </LanguageContext.Provider>
     );
